@@ -7,12 +7,18 @@ const todoController = require('../controllers/todoController');
 router.route("/create/task")
     .post(todoController.createTask);
 
-// Get Task
-router.route("")
+// Get All Task
+router.route("/tasks")
+    .get(todoController.showTasks);
+
+// Get Single Task
+router.route("/task/:taskId")
+    .get(todoController.showSingleTask);
 
 // Delete Task
 router.route("/task/:taskId")
-    .delete(todoController.deleteTask);
+    .delete(todoController.deleteTask)
+    .put(todoController.updateTask);
 
 router.param("taskId", todoController.taskById);
 

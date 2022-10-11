@@ -10,9 +10,25 @@ exports.taskById = (req, res, next, id) => {
                     error: "Task Not Found"
                 });
             } 
-            req.profile = task;
+            req.task = task;
             next();
         });
+};
+
+// Show All Tasks
+exports.showTasks = (req, res, next) => {
+    Todo.find()
+        .exec((err, result) => {
+            if(err) {
+                return res.status(400).json(err);
+            }
+            return res.json(result);
+        });
+};
+
+// Show a Single Task
+exports.showSingleTask = (req, res, next) => {
+    return res.json(req.task);
 };
 
 // Create Task
@@ -28,5 +44,23 @@ exports.createTask = (req, res, next) => {
 
 // Delete Task
 exports.deleteTask = (req, res, next) => {
+    const task = req.task;
 
+    task.remove((err, result) => {
+        if(err) if(err) return res.status(400).json(err);
+
+        return res.status(200).json({message: "Task Deleted Successfully"});
+    });
+};
+
+// Update Task
+exports.updateTask = (req, res, next) => {
+    const task = req.task;
+    task.name = req.body.name;
+
+    task.save((err, result) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json(result);
+    });
 }
