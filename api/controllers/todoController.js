@@ -15,6 +15,15 @@ exports.taskById = (req, res, next, id) => {
         });
 };
 
+
+
+// Show a Single Task
+exports.showSingleTask = (req, res, next) => {
+    return res.json(req.task);
+};
+
+
+
 // Show All Tasks
 exports.showTasks = (req, res, next) => {
     Todo.find()
@@ -26,10 +35,7 @@ exports.showTasks = (req, res, next) => {
         });
 };
 
-// Show a Single Task
-exports.showSingleTask = (req, res, next) => {
-    return res.json(req.task);
-};
+
 
 // Create Task
 exports.createTask = (req, res, next) => {
@@ -42,6 +48,7 @@ exports.createTask = (req, res, next) => {
     });
 };
 
+
 // Delete Task
 exports.deleteTask = (req, res, next) => {
     const task = req.task;
@@ -52,6 +59,7 @@ exports.deleteTask = (req, res, next) => {
         return res.status(200).json({message: "Task Deleted Successfully"});
     });
 };
+
 
 // Update Task
 exports.updateTask = (req, res, next) => {
